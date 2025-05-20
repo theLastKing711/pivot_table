@@ -86,7 +86,9 @@ class User extends Authenticatable
 
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class, 'project_role_user');
+        return $this
+            ->belongsToMany(Project::class, 'project_role_user')
+            ->withTimestamps();
     }
 
     /**
@@ -94,7 +96,9 @@ class User extends Authenticatable
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'project_role_user');
+        return $this
+            ->belongsToMany(Role::class, 'project_role_user')
+            ->withTimestamps();
     }
 
     /**

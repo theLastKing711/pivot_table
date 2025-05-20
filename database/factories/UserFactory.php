@@ -68,6 +68,7 @@ class UserFactory extends Factory
             $projects->each(function (Project $project) use (&$x, $roles) {
                 $x[$project->id] = [
                     'role_id' => $this->faker->randomElement($roles)->id,
+                    'is_active' => $this->faker->boolean(),
                 ];
             });
 

@@ -13,7 +13,10 @@ class Role extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'project_role_user');
+        return
+            $this
+                ->belongsToMany(User::class, 'project_role_user')
+                ->withTimestamps();
     }
 
     /**
@@ -21,6 +24,9 @@ class Role extends Model
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class, 'project_role_user');
+        return
+            $this
+                ->belongsToMany(Project::class, 'project_role_user')
+                ->withTimestamps();
     }
 }
