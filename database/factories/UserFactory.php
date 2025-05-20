@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Enum\Auth\RolesEnum;
+use App\Models\Project;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 /**
@@ -34,21 +36,50 @@ class UserFactory extends Factory
         ];
     }
 
-    public function staticAdmin(): static
+    public function hasRolesAndProjects(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::ADMIN);
-        });
-    }
 
-    public function admin(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin'),
-        ])->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::ADMIN);
+            $projects =
+                Project::inRandomOrder()
+                    ->limit(2)
+                    ->get();
+
+            // $random_projects = $this->faker()->randomElement($projects);
+
+            $roles =
+                Role::inRandomOrder()
+                    ->limit(2)
+                    ->get();
+
+            // $ids =
+            //     $projects->map(function (Project $project) {
+            //         return [2 => [52 => 3]];
+            //     }
+            //     );
+
+            // $x = $projects->map(fn (Project $project) => [$project->id => ['role_id' => $this->faker->randomElement($roles)->id]]
+            // )->flatten();
+
+            // Log::info($x);
+
+            $x = [];
+
+            $projects->each(function (Project $project) use (&$x, $roles) {
+                $x[$project->id] = [
+                    'role_id' => $this->faker->randomElement($roles)->id,
+                ];
+            });
+
+            $user->projects()->attach($x);
+
+            // $user->projects()->attach([1 => ['role_id' => $this->faker->randomElement($roles)->id]]);
+
+            // $user->projects()->attach(
+            // )
+            // ->map(fn (Project $project) => ['1' => ['role_id' => $this->faker->randomElement($roles)->id]]
+            // )->flatten(1)
+            // );
         });
     }
 }
