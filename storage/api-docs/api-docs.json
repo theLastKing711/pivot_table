@@ -505,6 +505,29 @@
                 }
             }
         },
+        "/users/getuserroleprojects": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "operationId": "96faa3404717ba8ddb312943fed98e2e",
+                "responses": {
+                    "200": {
+                        "description": "Items fetched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetUserRoleProjectRequestData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/updateuserroleprojects": {
             "patch": {
                 "tags": [
@@ -800,6 +823,23 @@
                 "properties": {
                     "token": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "GetUserRoleProjectRequestData": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "role_id": {
+                        "type": "integer"
+                    },
+                    "is_active": {
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
