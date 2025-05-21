@@ -8,9 +8,11 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
 #[Oat\Schema()]
-class AddUserRoleProjectItemData extends Data
+class UpdateUserRoleProjectItemData extends Data
 {
     public function __construct(
+        #[OAT\Property]
+        public int $id,
         #[OAT\Property]
         public int $project_id,
         #[OAT\Property]

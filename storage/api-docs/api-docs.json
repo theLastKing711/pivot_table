@@ -450,7 +450,7 @@
         "/users/adduserroleprojects": {
             "post": {
                 "tags": [
-                    "usersAddUserRoleProjects"
+                    "users"
                 ],
                 "operationId": "cda53aedaa3a7ac85566823d51c231a4",
                 "requestBody": {
@@ -499,6 +499,34 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/RegisterResponseData"
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/updateuserroleprojects": {
+            "patch": {
+                "tags": [
+                    "users"
+                ],
+                "operationId": "6e4bd3ab26cff39ab929dc3f503becad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRoleProjectRequestData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
                             }
                         }
                     }
@@ -741,6 +769,9 @@
                     },
                     "user_id": {
                         "type": "integer"
+                    },
+                    "is_active": {
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
@@ -769,6 +800,37 @@
                 "properties": {
                     "token": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserRoleProjectItemData": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "role_id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "is_active": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserRoleProjectRequestData": {
+                "properties": {
+                    "user_role_projects": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UpdateUserRoleProjectItemData"
+                        }
                     }
                 },
                 "type": "object"
@@ -842,8 +904,8 @@
             "description": "files"
         },
         {
-            "name": "usersAddUserRoleProjects",
-            "description": "usersAddUserRoleProjects"
+            "name": "users",
+            "description": "users"
         },
         {
             "name": "usersAuth",

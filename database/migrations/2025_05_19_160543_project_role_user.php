@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // https://laracasts.com/discuss/channels/laravel/pivot-table-id-column
         Schema::create('project_role_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('role_id')->constrained();
             $table->foreignId('project_id')->constrained();
