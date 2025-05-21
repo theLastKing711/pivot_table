@@ -505,6 +505,29 @@
                 }
             }
         },
+        "/users/getprojects": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "operationId": "322eb46c2fd4d2eee46ede8418a6fccd",
+                "responses": {
+                    "200": {
+                        "description": "Items fetched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetProjectsRequestData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/users/getuserroleprojects": {
             "get": {
                 "tags": [
@@ -827,8 +850,12 @@
                 },
                 "type": "object"
             },
+            "GetProjectsRequestData": {},
             "GetUserRoleProjectRequestData": {
                 "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
                     "user_id": {
                         "type": "integer"
                     },
@@ -840,6 +867,24 @@
                     },
                     "is_active": {
                         "type": "boolean"
+                    },
+                    "user_name": {
+                        "type": "string"
+                    },
+                    "project_name": {
+                        "type": "string"
+                    },
+                    "role_name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "schema": "string",
+                        "type": "string",
+                        "format": "datetime",
+                        "default": "2024-09-02 18:31:45",
+                        "pattern": "YYYY-MM-DD",
+                        "example": "2024-09-02 18:31:45",
+                        "nullable": true
                     }
                 },
                 "type": "object"
