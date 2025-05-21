@@ -11,7 +11,7 @@ Route::prefix('users')
     ->group(function () {
 
         Route::get('getuserroleprojects', GetUserRoleProjectController::class);
-        Route::get('getprojects', GetProjectsController::class);
+        Route::get('{id}/getprojects', GetProjectsController::class);
 
         Route::post('adduserroleprojects', AddUserRoleProjectController::class);
         Route::patch('updateuserroleprojects', UpdateUserRoleProjectController::class);

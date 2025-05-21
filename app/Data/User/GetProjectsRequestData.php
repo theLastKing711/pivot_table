@@ -12,6 +12,6 @@ class GetProjectsRequestData extends Data
 {
     public function __construct(
         #[OAT\Property]
-        public string $id,
+        public int $id,
     ) {}
 }

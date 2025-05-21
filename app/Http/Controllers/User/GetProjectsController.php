@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Data\Shared\Swagger\Response\SuccessListResponse;
 use App\Data\User\GetProjectsRequestData;
+use App\Data\User\PathParameters\UserIdPathParameterData;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -11,15 +12,25 @@ use OpenApi\Attributes as OAT;
 
 class GetProjectsController extends Controller
 {
-    #[OAT\Get(path: '/users/getprojects', tags: ['users'])]
+    #[
+        OAT\PathItem(
+            path: '/users/{id}/getprojects',
+            parameters: [
+                new OAT\PathParameter(
+                    ref: '#/components/parameters/usersIdPathParameterData',
+                ),
+            ],
+        ),
+    ]
+    #[OAT\Get(path: '/users/{id}/getprojects', tags: ['users'])]
     #[SuccessListResponse(GetProjectsRequestData::class)]
-    public function __invoke(GetProjectsRequestData $request)
+    public function __invoke(UserIdPathParameterData $request)
     {
 
         // one query that joins all
         // $user_project_roles =
         //    DB::table('project_role_user')
-        //        ->where('users.id', 3)
+        //     //    ->where('users.id', $request->id)
         //        ->join('users', 'users.id', '=', 'project_role_user.user_id')
         //        ->join('projects', 'projects.id', '=', 'project_role_user.project_id')
         //        ->join('roles', 'roles.id', '=', 'project_role_user.role_id')
@@ -32,15 +43,15 @@ class GetProjectsController extends Controller
         //        ->get();
 
         // multiple quries
-        $logged_user =
+        $user_project_roles =
            User::query()
-               ->where('user_id', $request->id)
+               ->where('users.id', $request->id)
                ->with([
                    'projects',
                    'roles',
                ])->get();
 
-        return $logged_user;
+        return $user_project_roles;
 
     }
 }

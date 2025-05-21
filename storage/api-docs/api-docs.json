@@ -19,6 +19,34 @@
                 }
             ]
         },
+        "/users/{id}/getprojects": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "operationId": "3652b3cb263b8cf77734edf14f7d9cc0",
+                "responses": {
+                    "200": {
+                        "description": "Items fetched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetProjectsRequestData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/usersIdPathParameterData"
+                }
+            ]
+        },
         "/admin/users": {
             "get": {
                 "tags": [
@@ -505,29 +533,6 @@
                 }
             }
         },
-        "/users/getprojects": {
-            "get": {
-                "tags": [
-                    "users"
-                ],
-                "operationId": "322eb46c2fd4d2eee46ede8418a6fccd",
-                "responses": {
-                    "200": {
-                        "description": "Items fetched successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/GetProjectsRequestData"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/users/getuserroleprojects": {
             "get": {
                 "tags": [
@@ -850,7 +855,14 @@
                 },
                 "type": "object"
             },
-            "GetProjectsRequestData": {},
+            "GetProjectsRequestData": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
             "GetUserRoleProjectRequestData": {
                 "properties": {
                     "id": {
@@ -929,6 +941,21 @@
                 ]
             }
         },
+        "responses": {
+            "200": {
+                "description": "Items fetched successfully",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/GetProjectsRequestData"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "parameters": {
             "ExampleIdPathParameter": {
                 "name": "id",
@@ -952,6 +979,14 @@
                 "required": false,
                 "schema": {
                     "type": "string"
+                }
+            },
+            "usersIdPathParameterData": {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer"
                 }
             }
         },
