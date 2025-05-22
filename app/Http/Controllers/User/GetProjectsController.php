@@ -49,7 +49,7 @@ class GetProjectsController extends Controller
         // return ProjectRoleUser::all();
 
         // 3) perform only multiple selects and no joins, is the slowest among other solutions here
-        // but is the must organized solution that can also get us parent and child relatoins
+        // but is the second must organized solution that can also get us parent and child relatoins
         // returns [{...pivot_table_data, project: {}, role: {}, locations:[{}]}]
 
         // $user_id = ProjectRoleUser::query()
@@ -85,14 +85,25 @@ class GetProjectsController extends Controller
 
         // return $user_project_roles;
 
-        return
-            User::query()
-                ->with(
-                    [
-                        'projects',
-                    ]
-                )
-                ->get();
+        // 4) best orginazed solution yet
+        return User::query()
+            ->with(relations: [
+                'projectRoleUsers' => [
+                    'locations',
+                    'role',
+                    'project',
+                ],
+            ])
+            ->get();
+
+        // return
+        //     User::query()
+        //         ->with(
+        //             [
+        //                 'projects',
+        //             ]
+        //         )
+        //         ->get();
 
     }
 }

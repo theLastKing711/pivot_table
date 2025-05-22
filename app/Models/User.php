@@ -85,6 +85,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * Get all of the ProjectRoleUser for the User
+     */
+    public function projectRoleUsers(): HasMany
+    {
+        return $this->hasMany(ProjectRoleUser::class, 'user_id', 'id');
+    }
+
     public function projects(): BelongsToMany
     {
         return $this
