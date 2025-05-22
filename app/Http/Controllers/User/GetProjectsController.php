@@ -50,17 +50,26 @@ class GetProjectsController extends Controller
 
         // 3) perform only multiple selects and no joins, is the slowest among other solutions here
         // but is the must organized solution that can also get us parent and child relatoins
-        // returns [{...pivot_table_data, project: {}, role: {}, locations}]
-        return
-            ProjectRoleUser::query()
-                ->whereRelation('user', 'users.id', '=', $request->id)
-                ->with([
-                    'project',
-                    'role',
-                    'user',
-                    'locations',
-                ])
-                ->get();
+        // returns [{...pivot_table_data, project: {}, role: {}, locations:[{}]}]
+
+        // $user_id = ProjectRoleUser::query()
+        //     ->with('user')
+        //     ->where('id', '=', $request->id)
+        //     ->firstOrFail()
+        //     ->user
+        //     ->id;
+
+        // return
+        //     ProjectRoleUser::query()
+        //         ->whereRelation('user', 'users.id', '=', $request->id)
+        //         // ->where('user_id', $user_id) // possibly better performance
+        //         ->with([
+        //             'project',
+        //             'role',
+        //             'user',
+        //             'locations',
+        //         ])
+        //         ->get();
 
         // slower than query builder 1)
         // , but faster than custom pivot table  query 3)
@@ -75,6 +84,15 @@ class GetProjectsController extends Controller
         //        ])->get();
 
         // return $user_project_roles;
+
+        return
+            User::query()
+                ->with(
+                    [
+                        'projects',
+                    ]
+                )
+                ->get();
 
     }
 }

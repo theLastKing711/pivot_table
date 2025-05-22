@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -87,8 +88,9 @@ class User extends Authenticatable
     public function projects(): BelongsToMany
     {
         return $this
-            ->belongsToMany(Project::class, 'project_role_user');
-        // ->withTimestamps();
+            ->belongsToMany(Project::class, 'project_role_user')
+            ->with('roles', fn ($query) => $query->first())
+            ->withTimestamps();
     }
 
     /**
@@ -97,7 +99,7 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this
-            ->belongsToMany(Role::class, 'project_role_user')
+            // ->belongsToMany(Role::class, 'project_role_user')
             ->withTimestamps();
     }
 
