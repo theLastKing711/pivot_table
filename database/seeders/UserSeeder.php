@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Location;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
@@ -21,6 +22,11 @@ class UserSeeder extends Seeder
 
         $users = User::factory()
             ->hasRolesAndProjects()
+            ->count(3)
+            ->create();
+
+        Location::factory()
+            ->withProjectRoleUser()
             ->count(3)
             ->create();
 

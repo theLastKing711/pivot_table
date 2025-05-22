@@ -9,17 +9,18 @@ use Spatie\LaravelData\Casts\IterableItemCast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class ArrayToCollectionCast implements Cast, IterableItemCast
+class ArrayToCollectionCast implements Cast
+    // , IterableItemCast
 {
-    public function castIterableItem(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
-    {
-        Log::info('hello world');
+    // public function castIterableItem(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
+    // {
+    //     Log::info('hello world');
 
-        Log::info($property);
+    //     Log::info($property);
 
-        return $value;
+    //     return $value;
 
-    }
+    // }
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
