@@ -85,7 +85,8 @@ class GetProjectsController extends Controller
 
         // return $user_project_roles;
 
-        // 4) best orginazed solution yet
+        // 4) best orginazed solution yet, is also fast
+        // performs multiple selects with no joins.
         return User::query()
             ->with(relations: [
                 'projectRoleUsers' => [
